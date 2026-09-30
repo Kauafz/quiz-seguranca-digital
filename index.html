@@ -3,122 +3,138 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0a0f2c">
 <title>Quiz de Segurança Digital</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #eef2f7;
-    --surface: #ffffff;
-    --ink: #13203a;
-    --muted: #55617a;
-    --line: #d3dbe8;
-    --accent: #2447e0;
-    --accent-ink: #ffffff;
-    --accent-soft: #e3e9fd;
-    --ok: #17804f;
-    --ok-soft: #dff3e8;
-    --bad: #c2362c;
-    --bad-soft: #fbe6e3;
-    --display: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
-    --body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --page: linear-gradient(160deg, #0a0f2c 0%, #140f36 55%, #1e1148 100%);
+    --card: rgba(17, 21, 56, .8);
+    --ink: #eef0ff;
+    --muted: #a6abd8;
+    --line: rgba(150, 160, 255, .24);
+    --blue: #5b9bff;
+    --purple: #a06bff;
+    --grad: linear-gradient(135deg, #4f7dff, #9a5cff);
+    --on-grad: #ffffff;
+    --ok: #62a8ff;
+    --ok-soft: rgba(98, 168, 255, .16);
+    --bad: #c68bff;
+    --bad-soft: rgba(198, 139, 255, .16);
+    --pick: rgba(160, 107, 255, .18);
+    --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    color-scheme: dark;
     box-sizing: border-box;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --bg: #0f1627; --surface: #18223a; --ink: #e8edf8; --muted: #9aa7c4; --line: #2b3855;
-      --accent: #7f9bff; --accent-ink: #0f1627; --accent-soft: #24315a;
-      --ok: #55d394; --ok-soft: #173a2b; --bad: #ff8a80; --bad-soft: #432024;
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --page: linear-gradient(160deg, #eef2ff 0%, #f1ecff 100%);
+      --card: rgba(255, 255, 255, .8);
+      --ink: #1b1d4d; --muted: #5b6094; --line: rgba(80, 70, 180, .2);
+      --blue: #2f63e8; --purple: #7a3fe0;
+      --ok: #2f63e8; --ok-soft: rgba(47, 99, 232, .11);
+      --bad: #a43fd6; --bad-soft: rgba(164, 63, 214, .11);
+      --pick: rgba(122, 63, 224, .11);
+      color-scheme: light;
     }
   }
-  :root[data-theme="dark"] {
-    --bg: #0f1627; --surface: #18223a; --ink: #e8edf8; --muted: #9aa7c4; --line: #2b3855;
-    --accent: #7f9bff; --accent-ink: #0f1627; --accent-soft: #24315a;
-    --ok: #55d394; --ok-soft: #173a2b; --bad: #ff8a80; --bad-soft: #432024;
+  :root[data-theme="light"] {
+    --page: linear-gradient(160deg, #eef2ff 0%, #f1ecff 100%);
+    --card: rgba(255, 255, 255, .8);
+    --ink: #1b1d4d; --muted: #5b6094; --line: rgba(80, 70, 180, .2);
+    --blue: #2f63e8; --purple: #7a3fe0;
+    --ok: #2f63e8; --ok-soft: rgba(47, 99, 232, .11);
+    --bad: #a43fd6; --bad-soft: rgba(164, 63, 214, .11);
+    --pick: rgba(122, 63, 224, .11);
+    color-scheme: light;
   }
-  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); min-height: 100%; }
   * { box-sizing: border-box; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--body); line-height: 1.55; font-size: 16px; }
-  main { max-width: 720px; margin: 0 auto; padding: 28px 18px 64px; }
-  h1, h2, h3 { font-family: var(--display); line-height: 1.1; margin: 0; letter-spacing: -0.01em; }
+  body { margin: 0; min-height: 100vh; background: var(--page); background-attachment: fixed; color: var(--ink); font-family: var(--font); line-height: 1.55; font-size: 16px; -webkit-font-smoothing: antialiased; }
+  #dragon { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+  main.page { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; padding: 28px 16px 72px; }
   button { font: inherit; cursor: pointer; }
-  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  :focus-visible { outline: 3px solid var(--purple); outline-offset: 3px; }
 
-  .hero h1 { font-size: clamp(2.4rem, 9vw, 4rem); font-weight: 800; }
-  .hero p { color: var(--muted); max-width: 52ch; margin: 16px 0 0; }
-  .parts { list-style: none; padding: 0; margin: 28px 0; display: grid; gap: 8px; }
-  .parts li { background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--accent); border-radius: 6px; padding: 12px 14px; display: flex; justify-content: space-between; gap: 12px; }
-  .parts span { color: var(--muted); font-size: .9rem; white-space: nowrap; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px; margin-bottom: 16px; backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+  h1 { font-size: clamp(2rem, 7vw, 3rem); line-height: 1.1; margin: 8px 0 14px; letter-spacing: -.02em; }
+  h2 { font-size: 1.25rem; margin: 0 0 16px; }
+  .eyebrow { margin: 0; color: var(--purple); font-weight: 600; font-size: .9rem; }
+  .lead { color: var(--muted); margin: 0 0 22px; max-width: 54ch; }
 
-  .btn { border: 0; border-radius: 8px; padding: 13px 22px; font-weight: 600; background: var(--accent); color: var(--accent-ink); }
-  .btn.ghost { background: transparent; color: var(--ink); border: 1.5px solid var(--line); }
+  .btn { border: 1.5px solid var(--line); background: transparent; color: var(--ink); border-radius: 12px; padding: 12px 22px; font-weight: 600; transition: transform .1s, opacity .15s; }
+  .btn.primary { background: var(--grad); color: var(--on-grad); border-color: transparent; }
   .btn:disabled { opacity: .4; cursor: not-allowed; }
+  .btn:not(:disabled):active { transform: scale(.97); }
 
-  .strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin-bottom: 8px; }
-  .seg { height: 8px; border-radius: 4px; background: var(--line); position: relative; overflow: hidden; }
-  .seg i { position: absolute; inset: 0 auto 0 0; background: var(--accent); width: 0; transition: width .25s; }
-  .meta { display: flex; justify-content: space-between; gap: 10px; color: var(--muted); font-size: .9rem; margin-bottom: 26px; }
-  .meta b { color: var(--ink); font-weight: 600; }
+  .steps { list-style: none; padding: 0; margin: 0 0 24px; display: grid; gap: 8px; }
+  .steps li { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; }
+  .steps .n { flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--pick); color: var(--purple); font-weight: 700; font-size: .85rem; display: grid; place-items: center; }
+  .steps small { margin-left: auto; color: var(--muted); white-space: nowrap; }
 
-  .q h2 { font-size: clamp(1.4rem, 5vw, 1.9rem); font-weight: 700; margin-bottom: 20px; }
+  .top { display: flex; justify-content: space-between; gap: 10px; font-size: .85rem; color: var(--muted); margin-bottom: 10px; }
+  .top b { color: var(--ink); font-weight: 600; }
+  .progress { height: 8px; border-radius: 99px; background: var(--line); overflow: hidden; margin-bottom: 22px; }
+  .progress i { display: block; height: 100%; background: var(--grad); border-radius: 99px; transition: width .3s; }
+  .stepname { margin: 0 0 6px; color: var(--purple); font-weight: 600; font-size: .9rem; }
+  h2.q { font-size: clamp(1.3rem, 4.6vw, 1.7rem); line-height: 1.25; margin: 0 0 20px; letter-spacing: -.01em; }
   fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 10px; }
-  .opt { display: flex; gap: 14px; align-items: flex-start; background: var(--surface); border: 1.5px solid var(--line); border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: border-color .15s, background .15s; }
-  .opt:hover { border-color: var(--accent); }
+  .opt { display: flex; gap: 14px; align-items: flex-start; padding: 14px 16px; border: 1.5px solid var(--line); border-radius: 14px; cursor: pointer; transition: border-color .15s, background .15s; position: relative; }
   .opt input { position: absolute; opacity: 0; pointer-events: none; }
-  .opt .key { flex: none; width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font-weight: 600; font-size: .85rem; color: var(--muted); }
-  .opt:has(input:checked) { border-color: var(--accent); background: var(--accent-soft); }
-  .opt:has(input:checked) .key { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
-  .opt:has(input:focus-visible) { outline: 3px solid var(--accent); outline-offset: 2px; }
-  .nav { display: flex; justify-content: space-between; margin-top: 26px; gap: 10px; }
+  .opt .ltr { flex: none; width: 30px; height: 30px; border-radius: 50%; border: 1.5px solid var(--line); display: grid; place-items: center; font-weight: 700; font-size: .85rem; color: var(--muted); }
+  .opt:hover { border-color: var(--purple); }
+  .opt:has(input:checked) { border-color: var(--purple); background: var(--pick); }
+  .opt:has(input:checked) .ltr { background: var(--grad); color: var(--on-grad); border-color: transparent; }
+  .opt:has(input:focus-visible) { outline: 3px solid var(--purple); outline-offset: 3px; }
+  .nav { display: flex; justify-content: space-between; gap: 10px; margin-top: 24px; }
 
-  .score { display: flex; flex-wrap: wrap; gap: 20px; align-items: baseline; margin: 6px 0 4px; }
-  .score .big { font-family: var(--display); font-weight: 800; font-size: clamp(3.4rem, 16vw, 6rem); line-height: 1; }
-  .verdict { color: var(--muted); max-width: 54ch; }
-  section.block { margin-top: 40px; }
-  section.block > h2 { font-size: 1.5rem; margin-bottom: 16px; }
-  .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
-  .overall { display: flex; flex-wrap: wrap; gap: 28px; align-items: center; justify-content: center; }
-  .overall svg { width: min(240px, 100%); height: auto; flex: none; }
-  .legend { display: grid; gap: 12px; min-width: 190px; }
-  .legend div { display: flex; align-items: center; gap: 10px; }
-  .dot { width: 14px; height: 14px; border-radius: 3px; flex: none; }
-  .legend strong { font-family: var(--display); font-size: 1.5rem; }
-  .legend small { display: block; color: var(--muted); }
-  .minis { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; }
+  .score { display: flex; flex-wrap: wrap; gap: 14px 26px; align-items: center; }
+  .score .big { font-size: clamp(3.4rem, 15vw, 5.5rem); font-weight: 800; line-height: 1; letter-spacing: -.03em; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .score .big small { font-size: .4em; font-weight: 600; letter-spacing: 0; }
+  .verdict { color: var(--muted); margin: 0; flex: 1 1 240px; }
+  .overall { display: flex; flex-wrap: wrap; gap: 26px; align-items: center; justify-content: center; }
+  .overall svg { width: min(230px, 100%); height: auto; flex: none; }
+  .legend { display: grid; gap: 14px; min-width: 180px; }
+  .legend div { display: flex; align-items: center; gap: 12px; }
+  .dot { width: 14px; height: 14px; border-radius: 50%; flex: none; }
+  .legend strong { font-size: 1.25rem; display: block; line-height: 1.2; }
+  .legend small { color: var(--muted); }
+  .minis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 22px 12px; }
   .mini { text-align: center; }
-  .mini svg { width: 120px; height: 120px; }
-  .mini h3 { font-size: 1rem; margin: 8px 0 2px; }
-  .mini p { margin: 0; color: var(--muted); font-size: .9rem; }
-
-  .miss { background: var(--surface); border: 1px solid var(--line); border-left: 6px solid var(--bad); border-radius: 8px; padding: 18px; margin-bottom: 14px; }
-  .miss .where { color: var(--muted); font-size: .85rem; margin-bottom: 6px; }
-  .miss h3 { font-size: 1.15rem; margin-bottom: 12px; }
-  .ans { border-radius: 6px; padding: 9px 12px; margin-bottom: 8px; font-size: .95rem; }
+  .mini svg { width: 112px; height: 112px; }
+  .mini h3 { font-size: .95rem; margin: 8px 0 4px; line-height: 1.3; }
+  .mini p { margin: 0; font-size: .85rem; }
+  .miss { border: 1px solid var(--line); border-left: 4px solid var(--bad); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+  .miss .where { color: var(--muted); font-size: .82rem; margin-bottom: 6px; }
+  .miss h3 { font-size: 1.05rem; line-height: 1.35; margin: 0 0 12px; }
+  .ans { padding: 10px 12px; margin: 8px 0; font-size: .95rem; border-radius: 10px; }
+  .ans b { display: block; font-size: .78rem; margin-bottom: 2px; }
   .ans.bad { background: var(--bad-soft); }
+  .ans.bad b { color: var(--bad); }
   .ans.ok { background: var(--ok-soft); }
-  .ans b { display: block; font-size: .8rem; font-weight: 600; margin-bottom: 2px; }
-  .why { color: var(--muted); font-size: .95rem; margin: 10px 0 0; }
-  .perfect { background: var(--ok-soft); border-radius: 10px; padding: 18px; }
-  [hidden] { display: none !important; }
+  .ans.ok b { color: var(--ok); }
+  .why { color: var(--muted); font-size: .92rem; margin: 10px 0 0; }
+  .perfect { background: var(--ok-soft); border-radius: 12px; padding: 16px; }
 </style>
 </head>
 <body>
-<main id="app"></main>
+<canvas id="dragon" aria-hidden="true"></canvas>
+<main class="page" id="app"></main>
 
 <script>
+/* ============================ DADOS DO QUIZ ============================ */
 const PARTS = [
-  { name: "Senhas e autenticação", color: "#2447e0" },
-  { name: "Phishing e engenharia social", color: "#c2362c" },
-  { name: "Redes e navegação segura", color: "#17804f" },
-  { name: "Dispositivos, malware e backup", color: "#b7791f" },
-  { name: "Privacidade e boas práticas", color: "#7a3fd1" }
+  { name: "Senhas e autenticação" },
+  { name: "Phishing e engenharia social" },
+  { name: "Redes e navegação segura" },
+  { name: "Dispositivos, malware e backup" },
+  { name: "Privacidade e boas práticas" }
 ];
 
 const Q = [
-  // Parte 1
+  // Etapa 1
   { p: 0, q: "Qual destas senhas é a mais segura?", o: ["Kaua2005!", "cavalo-bateria-grampo-lunar-47", "12345678", "senha@123"], a: 1,
     e: "Senhas longas e imprevisíveis (frases com várias palavras aleatórias) são muito mais difíceis de adivinhar do que senhas curtas com data de nascimento ou padrões comuns." },
   { p: 0, q: "O que é a autenticação em dois fatores (2FA)?", o: ["Usar duas senhas idênticas em contas diferentes", "Trocar a senha duas vezes por ano", "Exigir, além da senha, uma segunda prova de identidade", "Entrar na mesma conta em dois aparelhos"], a: 2,
@@ -128,7 +144,7 @@ const Q = [
   { p: 0, q: "Qual forma de 2FA costuma ser a mais resistente a ataques?", o: ["App autenticador ou chave de segurança física", "Código por SMS", "Perguntas de segurança (nome da mãe, pet...)", "Código enviado para um e-mail sem proteção extra"], a: 0,
     e: "SMS pode ser interceptado por golpes de troca de chip (SIM swap). Apps autenticadores e chaves físicas são mais difíceis de burlar." },
 
-  // Parte 2
+  // Etapa 2
   { p: 1, q: "Qual é um sinal típico de mensagem de phishing?", o: ["Mensagem com seu nome completo e sem nenhum link", "E-mail do domínio oficial que não pede nada", "Urgência, ameaça de bloqueio e link suspeito pedindo seus dados", "Aviso de atualização exibido pelo próprio sistema operacional"], a: 2,
     e: "Golpistas criam pressão (\"sua conta será bloqueada hoje\") para que você aja sem pensar. Links estranhos e pedidos de dados pessoais reforçam o alerta." },
   { p: 1, q: "Você recebe um SMS do \"banco\" com um link para \"regularizar a conta\". O que fazer?", o: ["Clicar rápido para evitar o bloqueio", "Ignorar o link e entrar pelo app oficial ou ligar ao número impresso no cartão", "Responder o SMS perguntando se é verdadeiro", "Encaminhar aos amigos para avisá-los, com o link"], a: 1,
@@ -138,7 +154,7 @@ const Q = [
   { p: 1, q: "Alguém liga dizendo ser do \"suporte técnico\" e pede o código de verificação que você acabou de receber por SMS. Isso é:", o: ["Engenharia social: códigos de verificação jamais devem ser compartilhados", "Procedimento normal de suporte", "Aceitável se a pessoa souber o seu nome", "Seguro se a ligação vier de um número com DDD local"], a: 0,
     e: "Empresas legítimas não pedem códigos de verificação. Esse código é justamente o que o golpista precisa para concluir o acesso à sua conta." },
 
-  // Parte 3
+  // Etapa 3
   { p: 2, q: "O cadeado (HTTPS) ao lado do endereço de um site indica que:", o: ["O site é confiável e legítimo", "A conexão com o site é criptografada, mas isso não garante que o site seja honesto", "O site está livre de vírus", "O site não coleta dados pessoais"], a: 1,
     e: "HTTPS protege os dados em trânsito. Sites de golpe também podem ter cadeado, então confira sempre o endereço exato." },
   { p: 2, q: "Você está no Wi-Fi aberto de um aeroporto e precisa acessar o banco. O mais prudente é:", o: ["Acessar normalmente, pois o cadeado garante tudo", "Desativar o firewall para conectar mais rápido", "Pedir a senha do Wi-Fi a desconhecidos", "Evitar operações sensíveis ou usar VPN/dados móveis"], a: 3,
@@ -148,7 +164,7 @@ const Q = [
   { p: 2, q: "Qual é a forma mais segura de acessar o site do seu banco?", o: ["Digitar o endereço oficial ou usar o app oficial do banco", "Clicar no primeiro anúncio patrocinado do buscador", "Abrir o link recebido por WhatsApp", "Usar qualquer link que pareça familiar"], a: 0,
     e: "Anúncios e links recebidos podem levar a cópias fraudulentas. O endereço digitado por você ou o app oficial evitam esse risco." },
 
-  // Parte 4
+  // Etapa 4
   { p: 3, q: "Por que manter o sistema e os aplicativos atualizados é importante?", o: ["As atualizações só mudam o visual", "Elas corrigem vulnerabilidades que atacantes podem explorar", "Elas deixam o aparelho mais lento de propósito", "Servem apenas para renovar a licença"], a: 1,
     e: "Muitos ataques exploram falhas já conhecidas e corrigidas. Quem não atualiza continua vulnerável a elas." },
   { p: 3, q: "O que é um ransomware?", o: ["Programa que apenas exibe propagandas", "Técnica para descobrir senhas por tentativa e erro", "Malware que criptografa seus arquivos e exige pagamento para liberá-los", "Golpe aplicado por ligação telefônica"], a: 2,
@@ -158,7 +174,7 @@ const Q = [
   { p: 3, q: "Qual atitude é mais segura ao instalar um aplicativo?", o: ["Baixar de qualquer site, desde que seja gratuito", "Instalar pela loja oficial e revisar as permissões que o app pede", "Instalar versões \"crackeadas\" para economizar", "Aceitar todas as permissões sem ler"], a: 1,
     e: "Lojas oficiais filtram boa parte dos apps maliciosos. Desconfie de apps que pedem permissões sem relação com sua função (como lanterna pedindo acesso aos contatos)." },
 
-  // Parte 5
+  // Etapa 5
   { p: 4, q: "No Brasil, qual lei trata especificamente da proteção de dados pessoais?", o: ["Lei de Direitos Autorais", "Lei Seca", "Lei Geral de Proteção de Dados (LGPD, Lei nº 13.709/2018)", "Lei de Licitações"], a: 2,
     e: "A LGPD define como empresas e órgãos podem coletar, usar, armazenar e compartilhar dados pessoais, e garante direitos aos titulares." },
   { p: 4, q: "O que diz o princípio do menor privilégio?", o: ["Todos devem ser administradores para agilizar o trabalho", "Uma conta de administrador deve ser compartilhada pela equipe", "Nenhum usuário deve ter qualquer permissão", "Cada pessoa deve ter apenas os acessos necessários à sua função"], a: 3,
@@ -175,17 +191,486 @@ const app = document.getElementById("app");
 let cur = 0;
 let answers = new Array(Q.length).fill(null);
 
-function esc(s) { return String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c])); }
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const mix = (a, b, t) => a + (b - a) * t;
 
+/* ============================ DRAGÃO VOADOR (canvas 2D) ============================ */
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const motion = !reduceMotion;
+const cv = document.getElementById("dragon");
+const ctx = cv.getContext("2d");
+
+const N = 54;          // segmentos do corpo
+const SH = 8;          // segmento dos ombros (asas e patas dianteiras)
+const HIP = 25;        // segmento dos quadris (patas traseiras)
+const PAL = {
+  rim: "#141a5a", belly: "rgba(224,218,255,.92)", plate: "rgba(110,100,200,.5)",
+  bone: "#ece8ff", spine: "#a78bfa", fin: "rgba(139,92,246,.92)", edge: "rgba(196,181,253,.95)",
+  eye: "#62e6ff", mouth: "#22103f",
+  wingA: "rgba(139,92,246,.82)", wingB: "rgba(59,130,246,.62)"
+};
+const BC = [];
+for (let i = 0; i < N; i++) {
+  const t = i / N;
+  BC.push(`rgb(${Math.round(mix(58, 142, t))},${Math.round(mix(110, 76, t))},${Math.round(mix(240, 232, t))})`);
+}
+
+const pts = Array.from({ length: N }, () => ({ x: -120, y: 300 }));
+const qs = Array.from({ length: N }, () => ({ x: 0, y: 0, fx: 1, fy: 0, f: 1 }));
+const R = new Float32Array(N);
+const parts = [];
+let W = 0, H = 0, L = 14, maxR = 12, wingSpan = 200;
+let time = 0, roarT = 1, headFlip = 1, headA = 0, ptr = null;
+let sideSh = 1, sideHip = 1, flapPh = 0, jaw = 0.06, emitAcc = 0;
+const stage = { mode: "intro", p: 0 };
+
+function resize() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  W = window.innerWidth; H = window.innerHeight;
+  cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  L = clamp(Math.min(W, H) * 0.028, 8, 15);
+  maxR = L * 1.05;
+  wingSpan = L * 15;
+  for (let i = 0; i < N; i++) {
+    const t = i / N;
+    const sm = clamp(t / 0.18, 0, 1);
+    R[i] = maxR * (0.6 + 0.4 * sm * sm * (3 - 2 * sm)) * Math.pow(1 - t, 0.85) + 0.8;
+  }
+  if (reduceMotion) settle();
+}
+
+function targetPoint() {
+  const k = stage.mode === "quiz" ? stage.p * 1.7 : stage.mode === "result" ? 7.3 : 0;
+  const x = W * (0.5 + 0.46 * Math.sin(time * 0.23 + k));
+  const y = H * (0.5 + 0.4 * Math.sin(time * 0.31 + k * 1.3 + 1));
+  return [x, y];
+}
+
+function dirAt(i) {
+  const a = pts[Math.max(i - 1, 0)], b = pts[Math.min(i + 1, N - 1)];
+  const fx = a.x - b.x, fy = a.y - b.y, l = Math.hypot(fx, fy) || 1;
+  return [fx / l, fy / l];
+}
+
+function step(dt) {
+  time += dt;
+  const [tx, ty] = targetPoint();
+  const h = pts[0];
+  const dx = tx - h.x, dy = ty - h.y;
+  const d = Math.hypot(dx, dy) || 1;
+  let s = d * (1 - Math.exp(-dt * 2.6));
+  s = Math.min(s, 520 * dt);
+  h.x += dx / d * s; h.y += dy / d * s;
+  for (let i = 1; i < N; i++) {
+    const a = pts[i - 1], b = pts[i];
+    const ex = b.x - a.x, ey = b.y - a.y, l = Math.hypot(ex, ey) || 1;
+    b.x = a.x + ex / l * L; b.y = a.y + ey / l * L;
+  }
+  headA = Math.atan2(pts[0].y - pts[3].y, pts[0].x - pts[3].x);
+  headFlip += ((Math.cos(headA) >= 0 ? 1 : -1) - headFlip) * Math.min(1, dt * 9);
+  sideSh += ((dirAt(SH)[0] >= 0 ? 1 : -1) - sideSh) * Math.min(1, dt * 7);
+  sideHip += ((dirAt(HIP)[0] >= 0 ? 1 : -1) - sideHip) * Math.min(1, dt * 7);
+  flapPh += dt * (4.6 + clamp(s / dt / 170, 0, 2.6));
+  if (roarT < 1) roarT = Math.min(1, roarT + dt / 0.95);
+
+  let hover = 0;
+  if (ptr) hover = clamp(1 - Math.hypot(ptr.x - h.x, ptr.y - h.y) / 240, 0, 1) * 0.6;
+  const roarJ = roarT < 1 ? Math.sin(roarT * Math.PI) * 0.75 : 0;
+  jaw = clamp(0.06 + (motion ? 0.04 * Math.sin(time * 2.1) : 0) + hover + roarJ, 0, 0.85);
+
+  if (motion) {
+    if (roarT < 0.8 && jaw > 0.35) { emitAcc += dt * 70; while (emitAcc >= 1) { emitBreath(); emitAcc -= 1; } }
+    for (let i = parts.length - 1; i >= 0; i--) {
+      const p = parts[i];
+      p.x += p.vx * dt; p.y += p.vy * dt; p.vx *= 0.985; p.vy *= 0.985; p.life -= dt;
+      if (p.life <= 0) parts.splice(i, 1);
+    }
+  }
+}
+
+function emitBreath() {
+  if (parts.length > 140) return;
+  const u = maxR * 1.15, hp = pts[0];
+  const mx = 2.8 * u, my = 0.3 * u;
+  const c = Math.cos(headA), s = Math.sin(headA);
+  const a = headA + (Math.random() - 0.5) * 0.7, sp = 90 + Math.random() * 140;
+  const life = 0.6 + Math.random() * 0.5;
+  parts.push({ x: hp.x + mx * c - my * headFlip * s, y: hp.y + mx * s + my * headFlip * c,
+    vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, life, max: life, size: 3 + Math.random() * 4 });
+}
+
+function settle() {
+  for (let k = 0; k < 260; k++) step(1 / 30);
+  roarT = 1; headFlip = Math.cos(headA) >= 0 ? 1 : -1;
+  sideSh = dirAt(SH)[0] >= 0 ? 1 : -1; sideHip = dirAt(HIP)[0] >= 0 ? 1 : -1;
+  draw();
+}
+
+function seg(a, b, w, color) {
+  ctx.strokeStyle = color; ctx.lineWidth = w;
+  ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+}
+
+function computeQs() {
+  const amp = motion ? L * 0.45 : 0;
+  for (let i = 0; i < N; i++) {
+    const [fx, fy] = dirAt(i);
+    const w = amp * Math.sin(i * 0.3 - time * 3) * (0.15 + 0.85 * i / N);
+    const q = qs[i];
+    q.x = pts[i].x - fy * w; q.y = pts[i].y + fx * w; q.fx = fx; q.fy = fy; q.f = Math.tanh(fx * 3);
+  }
+}
+
+function draw() {
+  ctx.clearRect(0, 0, W, H);
+  computeQs();
+  ctx.lineCap = "round"; ctx.lineJoin = "round";
+  drawWing(true);
+  drawLeg(SH + 4, sideSh, true); drawLeg(HIP + 3, sideHip, true);
+  drawTailFin();
+  drawSpines();
+  drawBody();
+  drawLeg(SH + 4, sideSh, false); drawLeg(HIP + 3, sideHip, false);
+  drawWing(false);
+  drawHead();
+  drawParticles();
+}
+
+function drawSpines() {
+  ctx.fillStyle = PAL.spine;
+  for (let i = 4; i < N * 0.9; i += 2) {
+    const s = qs[i], f = s.f;
+    const nx = s.fy * f, ny = -s.fx * f;
+    const r = R[i], hg = r * (i < N * 0.5 ? 1.25 : 0.9);
+    const bx = s.x + nx * r * 0.7, by = s.y + ny * r * 0.7;
+    ctx.beginPath();
+    ctx.moveTo(bx + s.fx * L * 0.5, by + s.fy * L * 0.5);
+    ctx.lineTo(bx - s.fx * L * 0.5, by - s.fy * L * 0.5);
+    ctx.lineTo(s.x + nx * (r + hg) - s.fx * L * 0.9, s.y + ny * (r + hg) - s.fy * L * 0.9);
+    ctx.closePath(); ctx.fill();
+  }
+}
+
+function drawBody() {
+  for (let i = N - 1; i > 0; i--) seg(qs[i], qs[i - 1], R[i] * 2 + 3, PAL.rim);
+  for (let i = N - 1; i > 0; i--) seg(qs[i], qs[i - 1], R[i] * 2, BC[i]);
+
+  // barriga clara com placas
+  for (let i = Math.floor(N * 0.86); i > 2; i--) {
+    const a = qs[i], b = qs[i - 1];
+    const fa = Math.abs(a.f), fb = Math.abs(b.f);
+    const sa = Math.sign(a.f) || 1, sb = Math.sign(b.f) || 1;
+    const oa = R[i] * 0.52 * sa, ob = R[i - 1] * 0.52 * sb;
+    ctx.strokeStyle = PAL.belly;
+    ctx.lineWidth = R[i] * 0.62 * clamp(fa * 2, 0, 1);
+    if (ctx.lineWidth < 0.5) continue;
+    ctx.beginPath();
+    ctx.moveTo(a.x - a.fy * oa, a.y + a.fx * oa);
+    ctx.lineTo(b.x - b.fy * ob, b.y + b.fx * ob);
+    ctx.stroke();
+    if (i % 2 === 0 && fa > 0.35) {
+      const px = -a.fy * sa, py = a.fx * sa;
+      ctx.strokeStyle = PAL.plate; ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(a.x + px * R[i] * 0.22, a.y + py * R[i] * 0.22);
+      ctx.lineTo(a.x + px * R[i] * 0.82, a.y + py * R[i] * 0.82);
+      ctx.stroke();
+    }
+  }
+  // escamas (pontinhos) e brilho no dorso
+  ctx.fillStyle = "rgba(255,255,255,.16)";
+  for (let i = 5; i < N * 0.85; i++) {
+    const s = qs[i], f = s.f;
+    const nx = s.fy * f, ny = -s.fx * f, r = R[i];
+    const o = (i % 2 ? 0.28 : 0.02) * r;
+    ctx.beginPath(); ctx.arc(s.x + nx * o, s.y + ny * o, Math.max(0.8, r * 0.13), 0, Math.PI * 2); ctx.fill();
+  }
+  ctx.strokeStyle = "rgba(255,255,255,.3)";
+  for (let i = Math.floor(N * 0.9); i > 1; i--) {
+    const a = qs[i], b = qs[i - 1];
+    const oa = R[i] * 0.5 * a.f, ob = R[i - 1] * 0.5 * b.f;
+    ctx.lineWidth = Math.max(1, R[i] * 0.26);
+    ctx.beginPath();
+    ctx.moveTo(a.x + a.fy * oa, a.y - a.fx * oa);
+    ctx.lineTo(b.x + b.fy * ob, b.y - b.fx * ob);
+    ctx.stroke();
+  }
+}
+
+function drawTailFin() {
+  const a = pts[N - 1], b = pts[N - 4];
+  const ang = Math.atan2(a.y - b.y, a.x - b.x);
+  const sw = motion ? Math.sin(time * 3 - N * 0.3) * 0.22 : 0;
+  ctx.save();
+  ctx.translate(qs[N - 1].x, qs[N - 1].y); ctx.rotate(ang + sw); ctx.scale(1, sideHip);
+  const F = L * 3.6, Wd = L * 1.5;
+  const g = ctx.createLinearGradient(0, 0, F, 0);
+  g.addColorStop(0, PAL.wingA); g.addColorStop(1, PAL.wingB);
+  ctx.beginPath();
+  ctx.moveTo(-L * 0.4, 0);
+  ctx.quadraticCurveTo(F * 0.35, -Wd * 1.25, F, 0);
+  ctx.quadraticCurveTo(F * 0.35, Wd * 1.25, -L * 0.4, 0);
+  ctx.closePath();
+  ctx.fillStyle = g; ctx.fill();
+  ctx.strokeStyle = PAL.edge; ctx.lineWidth = 1.2; ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(F * 0.92, 0);
+  ctx.strokeStyle = PAL.bone; ctx.lineWidth = 1.2; ctx.stroke();
+  ctx.restore();
+}
+
+function drawWing(far) {
+  const s = qs[SH];
+  const sc = far ? 0.86 : 1;
+  const ph = flapPh + (far ? 0.55 : 0);
+  const S = wingSpan * sc;
+  const ang = Math.atan2(s.fy, s.fx);
+  ctx.save();
+  ctx.translate(s.x + (far ? s.fx * L * 0.8 : 0), s.y + (far ? s.fy * L * 0.8 : 0));
+  ctx.rotate(ang); ctx.scale(1, sideSh);
+  const th = motion ? 0.3 + 0.95 * Math.sin(ph) : 0.35;
+  ctx.rotate(th);
+  const lag = motion ? Math.cos(ph - 0.9) * 0.3 : 0;
+  const Wr = [-0.1 * S, -0.62 * S];
+  const raw = [[0.2, -1.0], [-0.32, -1.08], [-0.8, -0.9], [-1.02, -0.52]];
+  const tips = raw.map(([x, y], k) => {
+    const tx = x * S - Wr[0], ty = y * S - Wr[1];
+    const a = lag * (0.4 + k * 0.35), c = Math.cos(a), sn = Math.sin(a);
+    return [Wr[0] + tx * c - ty * sn, Wr[1] + tx * sn + ty * c];
+  });
+  const c0 = Math.cos(-th), s0 = Math.sin(-th);
+  const Bx = -0.9 * S, By = 0.04 * S;
+  const B = [Bx * c0 - By * s0, Bx * s0 + By * c0];
+  const scallop = (p, q) => {
+    const mx = (p[0] + q[0]) / 2, my = (p[1] + q[1]) / 2;
+    ctx.quadraticCurveTo(mx + (Wr[0] - mx) * 0.25, my + (Wr[1] - my) * 0.25, q[0], q[1]);
+  };
+  ctx.globalAlpha = far ? 0.78 : 1;
+  ctx.beginPath();
+  ctx.moveTo(0, 0); ctx.lineTo(Wr[0], Wr[1]); ctx.lineTo(tips[0][0], tips[0][1]);
+  scallop(tips[0], tips[1]); scallop(tips[1], tips[2]); scallop(tips[2], tips[3]); scallop(tips[3], B);
+  ctx.closePath();
+  const g = ctx.createLinearGradient(0, 0, -S * 0.9, -S);
+  g.addColorStop(0, PAL.wingA); g.addColorStop(1, PAL.wingB);
+  ctx.fillStyle = g; ctx.fill();
+  ctx.strokeStyle = PAL.edge; ctx.lineWidth = 1.2; ctx.stroke();
+
+  // ossos dos dedos
+  ctx.strokeStyle = PAL.bone; ctx.lineWidth = Math.max(1.1, S * 0.013);
+  for (const t of tips) { ctx.beginPath(); ctx.moveTo(Wr[0], Wr[1]); ctx.lineTo(t[0], t[1]); ctx.stroke(); }
+  ctx.beginPath(); ctx.moveTo(Wr[0], Wr[1]); ctx.lineTo(B[0], B[1]); ctx.lineWidth = Math.max(1, S * 0.009); ctx.stroke();
+  ctx.strokeStyle = "#c4b5fd"; ctx.lineWidth = Math.max(2, S * 0.03);
+  ctx.beginPath(); ctx.moveTo(0, 0); ctx.lineTo(Wr[0], Wr[1]); ctx.stroke();
+  ctx.fillStyle = PAL.bone;
+  ctx.beginPath(); ctx.arc(Wr[0], Wr[1], Math.max(2, S * 0.022), 0, Math.PI * 2); ctx.fill();
+  // garra do polegar
+  ctx.beginPath();
+  ctx.moveTo(Wr[0] + S * 0.01, Wr[1] - S * 0.01);
+  ctx.quadraticCurveTo(Wr[0] + S * 0.14, Wr[1] - S * 0.05, Wr[0] + S * 0.12, Wr[1] - S * 0.17);
+  ctx.quadraticCurveTo(Wr[0] + S * 0.08, Wr[1] - S * 0.08, Wr[0] - S * 0.02, Wr[1] - S * 0.03);
+  ctx.closePath(); ctx.fill();
+  ctx.globalAlpha = 1;
+  ctx.restore();
+}
+
+function drawLeg(i, side, far) {
+  const s = qs[i], ang = Math.atan2(s.fy, s.fx), r = R[i];
+  const sc = far ? 0.88 : 1;
+  const sw = motion ? Math.sin(time * 2.3 + i) * 0.18 * L : 0;
+  ctx.save();
+  ctx.translate(s.x + (far ? s.fx * L * 0.7 : 0), s.y + (far ? s.fy * L * 0.7 : 0));
+  ctx.rotate(ang); ctx.scale(1, side);
+  ctx.globalAlpha = far ? 0.72 : 1;
+  const A = [0.2 * L, r * 0.3], K = [-0.9 * L * sc + sw, r * 0.3 + 1.05 * L * sc], F = [0.45 * L * sc + sw, r * 0.3 + 1.95 * L * sc];
+  const limb = (p, q, w) => {
+    ctx.strokeStyle = PAL.rim; ctx.lineWidth = w + 3;
+    ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); ctx.stroke();
+    ctx.strokeStyle = BC[i]; ctx.lineWidth = w;
+    ctx.beginPath(); ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); ctx.stroke();
+  };
+  limb(A, K, r * 0.85 * sc);
+  limb(K, F, r * 0.55 * sc);
+  ctx.strokeStyle = PAL.bone; ctx.lineWidth = Math.max(1.3, L * 0.13);
+  for (const [dx, dy] of [[0.55, 0.15], [0.5, 0.5], [0.05, 0.68]]) {
+    ctx.beginPath(); ctx.moveTo(F[0], F[1]); ctx.lineTo(F[0] + dx * L, F[1] + dy * L); ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+  ctx.restore();
+}
+
+function blade(x0, y0, tx, ty, wid) {
+  const mx = (x0 + tx) / 2, my = (y0 + ty) / 2;
+  ctx.beginPath();
+  ctx.moveTo(x0, y0 - wid);
+  ctx.quadraticCurveTo(mx, my - wid * 0.3, tx, ty);
+  ctx.quadraticCurveTo(mx, my + wid * 0.8, x0, y0 + wid);
+  ctx.closePath();
+}
+
+function drawHead() {
+  const u = maxR * 1.15, hp = pts[0];
+  ctx.save();
+  ctx.translate(hp.x, hp.y); ctx.rotate(headA); ctx.scale(1, headFlip);
+
+  let lx = 0, ly = 0;
+  if (ptr) {
+    const vx = ptr.x - hp.x, vy = ptr.y - hp.y;
+    const c = Math.cos(headA), s = Math.sin(headA);
+    const ax = vx * c + vy * s, ay = (-vx * s + vy * c) * headFlip;
+    const l = Math.hypot(ax, ay) || 1; lx = ax / l; ly = ay / l;
+  }
+  const wv = motion ? Math.sin(time * 3.6) * 0.25 * u : 0;
+
+  // leques/aletas da nuca
+  ctx.fillStyle = PAL.fin; ctx.strokeStyle = PAL.edge; ctx.lineWidth = 1;
+  for (const [x0, y0, tx, ty, wd] of [[-0.9, 0.0, -3.0, 1.0, 0.28], [-0.9, -0.25, -3.2, 0.05, 0.26], [-0.8, 0.3, -2.6, 1.7, 0.22]]) {
+    blade(x0 * u, y0 * u, tx * u, ty * u + wv, wd * u); ctx.fill(); ctx.stroke();
+  }
+
+  // chifres (um ao fundo, um na frente)
+  ctx.fillStyle = PAL.bone;
+  ctx.globalAlpha = 0.55;
+  ctx.save(); ctx.translate(-0.3 * u, 0.25 * u); ctx.scale(0.85, 0.85); hornPath(u); ctx.fill(); ctx.restore();
+  ctx.globalAlpha = 1; hornPath(u); ctx.fill();
+  ctx.strokeStyle = "rgba(90,70,170,.5)"; ctx.lineWidth = 1;
+  for (const [x, y] of [[-1.3, -1.75], [-2.0, -2.0], [-2.7, -2.0]]) {
+    ctx.beginPath(); ctx.moveTo(x * u, (y - 0.2) * u); ctx.lineTo((x + 0.05) * u, (y + 0.22) * u); ctx.stroke();
+  }
+
+  // bigodes
+  ctx.strokeStyle = PAL.eye; ctx.lineWidth = 1.3; ctx.globalAlpha = 0.7;
+  ctx.beginPath(); ctx.moveTo(2.5 * u, -0.1 * u);
+  ctx.bezierCurveTo(1.6 * u, -1.6 * u - wv, -0.6 * u, -2.2 * u + wv, -2.6 * u, -1.2 * u - wv); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(2.4 * u, 0.2 * u);
+  ctx.bezierCurveTo(1.4 * u, 1.8 * u + wv, -0.8 * u, 2.2 * u - wv, -2.8 * u, 1.4 * u + wv); ctx.stroke();
+  ctx.globalAlpha = 1;
+
+  // interior da boca (com brilho quando ruge)
+  const hx = -0.6 * u, hy = 0.25 * u;
+  const cj = Math.cos(jaw), sj = Math.sin(jaw);
+  if (jaw > 0.07) {
+    const lx0 = 2.4 * u - hx, ly0 = 0.12 * u - hy;
+    const tx = hx + lx0 * cj - ly0 * sj, ty = hy + lx0 * sj + ly0 * cj;
+    ctx.fillStyle = PAL.mouth;
+    ctx.beginPath(); ctx.moveTo(hx, hy); ctx.lineTo(2.7 * u, 0.1 * u); ctx.lineTo(tx, ty); ctx.closePath(); ctx.fill();
+    if (roarT < 0.85) {
+      const gl = ctx.createRadialGradient(1.2 * u, 0.5 * u, 0, 1.2 * u, 0.5 * u, 1.6 * u);
+      gl.addColorStop(0, "rgba(98,230,255,.85)"); gl.addColorStop(1, "rgba(98,230,255,0)");
+      ctx.fillStyle = gl;
+      ctx.beginPath(); ctx.moveTo(hx, hy); ctx.lineTo(2.7 * u, 0.1 * u); ctx.lineTo(tx, ty); ctx.closePath(); ctx.fill();
+    }
+  }
+
+  // mandíbula inferior
+  ctx.save();
+  ctx.translate(hx, hy); ctx.rotate(jaw); ctx.translate(-hx, -hy);
+  ctx.fillStyle = BC[2]; ctx.strokeStyle = PAL.rim; ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(-1.0 * u, 0.3 * u); ctx.lineTo(2.4 * u, 0.12 * u);
+  ctx.quadraticCurveTo(2.5 * u, 0.4 * u, 2.0 * u, 0.55 * u);
+  ctx.quadraticCurveTo(0.6 * u, 1.15 * u, -1.0 * u, 0.95 * u);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.fillStyle = PAL.spine;
+  for (const x of [0.1, 0.8]) {
+    ctx.beginPath(); ctx.moveTo((x + 0.35) * u, 0.98 * u); ctx.lineTo((x - 0.25) * u, 1.65 * u); ctx.lineTo((x - 0.05) * u, 0.95 * u); ctx.closePath(); ctx.fill();
+  }
+  ctx.fillStyle = PAL.bone;
+  for (const x of [1.2, 1.7, 2.15]) {
+    ctx.beginPath(); ctx.moveTo((x - 0.13) * u, 0.2 * u); ctx.lineTo((x + 0.13) * u, 0.2 * u); ctx.lineTo(x * u, -0.25 * u); ctx.closePath(); ctx.fill();
+  }
+  ctx.restore();
+
+  // crânio e focinho
+  ctx.fillStyle = BC[0]; ctx.strokeStyle = PAL.rim; ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(-1.2 * u, -0.2 * u);
+  ctx.bezierCurveTo(-1.2 * u, -1.3 * u, 0.6 * u, -1.5 * u, 1.4 * u, -0.95 * u);
+  ctx.quadraticCurveTo(2.2 * u, -0.85 * u, 2.9 * u, -0.35 * u);
+  ctx.quadraticCurveTo(3.0 * u, 0.0, 2.7 * u, 0.1 * u);
+  ctx.lineTo(0.2 * u, 0.22 * u); ctx.lineTo(-1.2 * u, 0.35 * u);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  // brilho no focinho e escamas da bochecha
+  ctx.strokeStyle = "rgba(255,255,255,.3)"; ctx.lineWidth = 1.4;
+  ctx.beginPath(); ctx.moveTo(-0.6 * u, -1.0 * u); ctx.bezierCurveTo(0.2 * u, -1.3 * u, 1.0 * u, -1.15 * u, 2.6 * u, -0.45 * u); ctx.stroke();
+  ctx.strokeStyle = "rgba(255,255,255,.22)"; ctx.lineWidth = 1;
+  for (let k = 0; k < 3; k++) { ctx.beginPath(); ctx.arc((-0.4 + k * 0.5) * u, -0.1 * u, 0.22 * u, Math.PI * 0.1, Math.PI * 0.9); ctx.stroke(); }
+  // narina
+  ctx.fillStyle = PAL.rim;
+  ctx.beginPath(); ctx.ellipse(2.45 * u, -0.42 * u, 0.1 * u, 0.055 * u, -0.4, 0, Math.PI * 2); ctx.fill();
+  // presas superiores
+  ctx.fillStyle = PAL.bone;
+  for (const [x, len] of [[1.0, 0.45], [1.6, 0.5], [2.35, 0.85]]) {
+    ctx.beginPath(); ctx.moveTo((x - 0.16) * u, 0.18 * u); ctx.lineTo((x + 0.16) * u, 0.16 * u); ctx.lineTo(x * u, (0.18 + len) * u); ctx.closePath(); ctx.fill();
+  }
+
+  // olho
+  const ex = 0.65 * u, ey = -0.5 * u;
+  const g = ctx.createRadialGradient(ex, ey, 0, ex, ey, 0.95 * u);
+  g.addColorStop(0, PAL.eye); g.addColorStop(1, "rgba(98,230,255,0)");
+  ctx.globalAlpha = 0.45; ctx.fillStyle = g;
+  ctx.beginPath(); ctx.arc(ex, ey, 0.95 * u, 0, Math.PI * 2); ctx.fill();
+  ctx.globalAlpha = 1; ctx.fillStyle = PAL.eye;
+  ctx.beginPath(); ctx.arc(ex, ey, 0.27 * u, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = "#0a0a24";
+  ctx.beginPath(); ctx.ellipse(ex + lx * 0.09 * u, ey + ly * 0.09 * u, 0.06 * u, 0.19 * u, 0, 0, Math.PI * 2); ctx.fill();
+  // pálpebra inclinada (olhar feroz)
+  ctx.fillStyle = BC[0]; ctx.strokeStyle = PAL.rim; ctx.lineWidth = 1.2;
+  ctx.beginPath();
+  ctx.moveTo(0.2 * u, -0.78 * u); ctx.lineTo(1.12 * u, -0.46 * u); ctx.lineTo(1.12 * u, -1.0 * u); ctx.lineTo(0.2 * u, -1.0 * u);
+  ctx.closePath(); ctx.fill();
+  ctx.beginPath(); ctx.moveTo(0.2 * u, -0.78 * u); ctx.lineTo(1.12 * u, -0.46 * u); ctx.stroke();
+  ctx.restore();
+}
+
+function hornPath(u) {
+  ctx.beginPath();
+  ctx.moveTo(-0.2 * u, -1.0 * u);
+  ctx.bezierCurveTo(-1.4 * u, -2.1 * u, -2.8 * u, -2.4 * u, -4.0 * u, -1.6 * u);
+  ctx.bezierCurveTo(-2.9 * u, -1.9 * u, -1.7 * u, -1.6 * u, -0.9 * u, -0.6 * u);
+  ctx.closePath();
+}
+
+function drawParticles() {
+  for (const p of parts) {
+    const t = 1 - p.life / p.max;
+    const r = Math.round(mix(110, 165, t)), g = Math.round(mix(230, 100, t)), b = 255;
+    ctx.fillStyle = `rgba(${r},${g},${b},${((1 - t) * 0.75).toFixed(3)})`;
+    ctx.beginPath(); ctx.arc(p.x, p.y, p.size * (0.6 + t * 1.4), 0, Math.PI * 2); ctx.fill();
+  }
+}
+
+function setStage(mode, p) {
+  stage.mode = mode; stage.p = p || 0;
+  roarT = 0;
+  if (reduceMotion) settle();
+}
+
+let lastT = performance.now();
+function frame(now) {
+  const dt = Math.min(0.05, (now - lastT) / 1000);
+  lastT = now;
+  step(dt); draw();
+  requestAnimationFrame(frame);
+}
+
+window.addEventListener("pointermove", e => { ptr = { x: e.clientX, y: e.clientY }; }, { passive: true });
+window.addEventListener("pointerdown", e => { ptr = { x: e.clientX, y: e.clientY }; }, { passive: true });
+document.addEventListener("pointerleave", () => { ptr = null; });
+window.addEventListener("resize", resize);
+
+/* ============================ TELAS ============================ */
 function start() {
   cur = 0; answers = new Array(Q.length).fill(null);
+  setStage("intro", 0);
   app.innerHTML = `
-    <div class="hero">
-      <h1>Quiz de segurança digital</h1>
-      <p>${Q.length} questões em ${PARTS.length} partes, nível básico a intermediário. Cada pergunta tem 4 alternativas e uma única resposta correta. O resultado completo, com gráficos e a explicação dos seus erros, aparece só no final.</p>
-    </div>
-    <ul class="parts">${PARTS.map((p, i) => `<li style="border-left-color:${p.color}"><strong>Parte ${i + 1}: ${esc(p.name)}</strong><span>${PERPART} questões</span></li>`).join("")}</ul>
-    <button class="btn" id="go">Começar o quiz</button>`;
+    <div class="card">
+      <p class="eyebrow">Nível básico a intermediário</p>
+      <h1>Quiz de Segurança Digital</h1>
+      <p class="lead">Teste o que você sabe sobre senhas, golpes, redes e privacidade. São ${Q.length} perguntas em ${PARTS.length} etapas, cada uma com uma única resposta certa. No final você vê seu desempenho em gráficos e entende cada erro.</p>
+      <ul class="steps">${PARTS.map((p, i) => `<li><span class="n">${i + 1}</span><span>${esc(p.name)}</span><small>${PERPART} perguntas</small></li>`).join("")}</ul>
+      <button class="btn primary" id="go">Começar</button>
+    </div>`;
   document.getElementById("go").onclick = () => renderQ();
   window.scrollTo(0, 0);
 }
@@ -193,33 +678,30 @@ function start() {
 function renderQ() {
   const q = Q[cur];
   const inPart = cur % PERPART;
-  const segs = PARTS.map((_, i) => {
-    let w = 0;
-    if (i < q.p) w = 100; else if (i === q.p) w = ((inPart + (answers[cur] !== null ? 1 : 0)) / PERPART) * 100;
-    return `<div class="seg"><i style="width:${w}%"></i></div>`;
-  }).join("");
+  setStage("quiz", cur);
   const last = cur === Q.length - 1;
+  const done = Math.round((cur / Q.length) * 100);
   app.innerHTML = `
-    <div class="strip" aria-hidden="true">${segs}</div>
-    <div class="meta"><span>Parte ${q.p + 1} de ${PARTS.length}: <b>${esc(PARTS[q.p].name)}</b></span><span>Questão ${inPart + 1} de ${PERPART}</span></div>
-    <div class="q">
-      <h2 id="qt">${esc(q.q)}</h2>
+    <div class="card">
+      <div class="top"><span>Etapa <b>${q.p + 1}</b> de ${PARTS.length}</span><span>Pergunta <b>${cur + 1}</b> de ${Q.length}</span></div>
+      <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${done}"><i style="width:${done}%"></i></div>
+      <p class="stepname">${esc(PARTS[q.p].name)} · ${inPart + 1}/${PERPART}</p>
+      <h2 class="q" id="qt">${esc(q.q)}</h2>
       <fieldset aria-labelledby="qt">
         ${q.o.map((t, i) => `
           <label class="opt">
             <input type="radio" name="opt" value="${i}" ${answers[cur] === i ? "checked" : ""}>
-            <span class="key">${LETTERS[i]}</span><span>${esc(t)}</span>
+            <span class="ltr" aria-hidden="true">${LETTERS[i]}</span><span>${esc(t)}</span>
           </label>`).join("")}
       </fieldset>
-    </div>
-    <div class="nav">
-      <button class="btn ghost" id="back" ${cur === 0 ? "disabled" : ""}>Voltar</button>
-      <button class="btn" id="next" ${answers[cur] === null ? "disabled" : ""}>${last ? "Ver resultado" : "Próxima"}</button>
+      <div class="nav">
+        <button class="btn" id="back" ${cur === 0 ? "disabled" : ""}>Voltar</button>
+        <button class="btn primary" id="next" ${answers[cur] === null ? "disabled" : ""}>${last ? "Ver resultado" : "Próxima"}</button>
+      </div>
     </div>`;
   app.querySelectorAll("input[name=opt]").forEach(inp => inp.onchange = () => {
     answers[cur] = Number(inp.value);
     document.getElementById("next").disabled = false;
-    app.querySelectorAll(".seg i")[q.p].style.width = (((inPart + 1) / PERPART) * 100) + "%";
   });
   document.getElementById("back").onclick = () => { cur--; renderQ(); };
   document.getElementById("next").onclick = () => { if (last) renderResult(); else { cur++; renderQ(); } };
@@ -229,18 +711,18 @@ function renderQ() {
 function pie(slices, size, label) {
   const total = slices.reduce((s, x) => s + x.v, 0);
   const c = size / 2, r = size / 2 - 2;
+  const nz = slices.filter(s => s.v > 0);
   let body = "";
-  const nonzero = slices.filter(s => s.v > 0);
-  if (nonzero.length === 1) {
-    body = `<circle cx="${c}" cy="${c}" r="${r}" fill="${nonzero[0].color}"/>`;
+  if (nz.length === 1) {
+    body = `<circle cx="${c}" cy="${c}" r="${r}" style="fill:${nz[0].color}"/>`;
   } else {
     let ang = -Math.PI / 2;
-    nonzero.forEach(s => {
+    nz.forEach(s => {
       const a2 = ang + (s.v / total) * Math.PI * 2;
       const x1 = c + r * Math.cos(ang), y1 = c + r * Math.sin(ang);
       const x2 = c + r * Math.cos(a2), y2 = c + r * Math.sin(a2);
       const large = a2 - ang > Math.PI ? 1 : 0;
-      body += `<path d="M${c} ${c} L${x1.toFixed(2)} ${y1.toFixed(2)} A${r} ${r} 0 ${large} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z" fill="${s.color}" stroke="var(--surface)" stroke-width="2"/>`;
+      body += `<path d="M${c} ${c} L${x1.toFixed(2)} ${y1.toFixed(2)} A${r} ${r} 0 ${large} 1 ${x2.toFixed(2)} ${y2.toFixed(2)} Z" style="fill:${s.color};stroke:var(--card);stroke-width:2"/>`;
       ang = a2;
     });
   }
@@ -250,70 +732,75 @@ function pie(slices, size, label) {
 const pct = (v, t) => (t ? Math.round((v / t) * 1000) / 10 : 0).toString().replace(".", ",") + "%";
 
 function renderResult() {
-  const OK = "#17804f", BAD = "#c2362c";
+  setStage("result", 0);
+  const OK = "var(--ok)", BAD = "var(--bad)";
   const hits = Q.filter((q, i) => answers[i] === q.a).length;
   const miss = Q.length - hits;
   const p = (hits / Q.length) * 100;
-  const verdict = p === 100 ? "Desempenho perfeito. Você domina os fundamentos e o nível intermediário de segurança digital."
-    : p >= 80 ? "Muito bom. Você tem uma base sólida e só precisa ajustar alguns detalhes."
+  const verdict = p === 100 ? "Desempenho perfeito! Você domina os fundamentos e o nível intermediário de segurança digital."
+    : p >= 80 ? "Muito bom! Você tem uma base sólida e só precisa ajustar alguns detalhes."
     : p >= 60 ? "Bom começo. Você conhece o básico, mas vale revisar os pontos que errou abaixo."
-    : p >= 40 ? "Há lacunas importantes. Leia as explicações abaixo com atenção e tente de novo."
-    : "Muita coisa para reforçar, e isso é normal para quem está começando. As explicações abaixo são o melhor ponto de partida.";
+    : p >= 40 ? "Ainda há lacunas importantes. Leia as explicações abaixo com calma e tente de novo."
+    : "Tem bastante coisa para reforçar, e tudo bem. As explicações abaixo são um ótimo ponto de partida.";
 
   const perPart = PARTS.map((pt, i) => {
-    const idx = Q.map((q, k) => k).filter(k => Q[k].p === i);
+    const idx = Q.map((_, k) => k).filter(k => Q[k].p === i);
     const h = idx.filter(k => answers[k] === Q[k].a).length;
     return { pt, h, m: idx.length - h, t: idx.length };
   });
-
   const misses = Q.map((q, i) => ({ q, i })).filter(({ q, i }) => answers[i] !== q.a);
 
   app.innerHTML = `
-    <h1 style="font-size:clamp(1.6rem,6vw,2.2rem)">Seu resultado final</h1>
-    <div class="score"><span class="big">${hits}/${Q.length}</span><span class="verdict">${verdict}</span></div>
+    <div class="card">
+      <p class="eyebrow">Seu resultado</p>
+      <div class="score"><span class="big">${hits}<small> de ${Q.length}</small></span><p class="verdict">${verdict}</p></div>
+    </div>
 
-    <section class="block">
-      <h2>Acertos e erros no total</h2>
-      <div class="panel overall">
-        ${pie([{ v: hits, color: OK }, { v: miss, color: BAD }], 240, `Gráfico de pizza: ${hits} acertos e ${miss} erros`)}
+    <div class="card">
+      <h2>Acertos e erros</h2>
+      <div class="overall">
+        ${pie([{ v: hits, color: OK }, { v: miss, color: BAD }], 230, `Gráfico de pizza: ${hits} acertos e ${miss} erros`)}
         <div class="legend">
-          <div><span class="dot" style="background:${OK}"></span><span><strong>${hits} acertos</strong><small>${pct(hits, Q.length)} das questões</small></span></div>
-          <div><span class="dot" style="background:${BAD}"></span><span><strong>${miss} erros</strong><small>${pct(miss, Q.length)} das questões</small></span></div>
+          <div><span class="dot" style="background:${OK}"></span><span><strong>${hits} acertos</strong><small>${pct(hits, Q.length)} das perguntas</small></span></div>
+          <div><span class="dot" style="background:${BAD}"></span><span><strong>${miss} erros</strong><small>${pct(miss, Q.length)} das perguntas</small></span></div>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section class="block">
-      <h2>Desempenho em cada parte</h2>
-      <div class="panel minis">
+    <div class="card">
+      <h2>Resultado por etapa</h2>
+      <div class="minis">
         ${perPart.map((x, i) => `
           <div class="mini">
-            ${pie([{ v: x.h, color: OK }, { v: x.m, color: BAD }], 120, `Parte ${i + 1}: ${x.h} acertos e ${x.m} erros`)}
-            <h3>Parte ${i + 1}</h3>
-            <p>${esc(x.pt.name)}</p>
-            <p><b style="color:var(--ok)">${x.h} certas (${pct(x.h, x.t)})</b><br><b style="color:var(--bad)">${x.m} erradas (${pct(x.m, x.t)})</b></p>
+            ${pie([{ v: x.h, color: OK }, { v: x.m, color: BAD }], 112, `Etapa ${i + 1}: ${x.h} acertos e ${x.m} erros`)}
+            <h3>${i + 1}. ${esc(x.pt.name)}</h3>
+            <p style="color:var(--ok)">${x.h} ${x.h === 1 ? "acerto" : "acertos"} · ${pct(x.h, x.t)}</p>
+            <p style="color:var(--bad)">${x.m} ${x.m === 1 ? "erro" : "erros"} · ${pct(x.m, x.t)}</p>
           </div>`).join("")}
       </div>
-    </section>
+    </div>
 
-    <section class="block">
-      <h2>${misses.length ? `Questões que você errou (${misses.length})` : "Questões que você errou"}</h2>
+    <div class="card">
+      <h2>${misses.length ? `Perguntas que você errou (${misses.length})` : "Perguntas que você errou"}</h2>
       ${misses.length ? misses.map(({ q, i }) => `
         <article class="miss">
-          <div class="where">Parte ${q.p + 1}: ${esc(PARTS[q.p].name)} · Questão ${(i % PERPART) + 1} de ${PERPART}</div>
+          <div class="where">Etapa ${q.p + 1} · ${esc(PARTS[q.p].name)} · pergunta ${(i % PERPART) + 1} de ${PERPART}</div>
           <h3>${esc(q.q)}</h3>
           <div class="ans bad"><b>Sua resposta</b>${LETTERS[answers[i]]}) ${esc(q.o[answers[i]])}</div>
-          <div class="ans ok"><b>Resposta correta</b>${LETTERS[q.a]}) ${esc(q.o[q.a])}</div>
+          <div class="ans ok"><b>Resposta certa</b>${LETTERS[q.a]}) ${esc(q.o[q.a])}</div>
           <p class="why">${esc(q.e)}</p>
-        </article>`).join("") : `<div class="perfect">Você não errou nenhuma questão. Nada para revisar.</div>`}
-    </section>
+        </article>`).join("") : `<div class="perfect">Você não errou nenhuma pergunta. Não há nada para revisar!</div>`}
+    </div>
 
-    <div class="nav" style="justify-content:flex-start;margin-top:32px"><button class="btn" id="again">Refazer o quiz</button></div>`;
+    <button class="btn primary" id="again">Refazer o quiz</button>`;
   document.getElementById("again").onclick = start;
   window.scrollTo(0, 0);
 }
 
+/* ============================ INÍCIO ============================ */
+resize();
 start();
+if (motion) requestAnimationFrame(frame); else settle();
 </script>
 </body>
 </html>
